@@ -5,4 +5,8 @@
 #ifndef RANSAC_RANSAC_H
 #define RANSAC_RANSAC_H
 
+class RANSAC {
+
+};
+
 #endif //RANSAC_RANSAC_H
