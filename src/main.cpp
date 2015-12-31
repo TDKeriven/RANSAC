@@ -1,9 +1,10 @@
 #include <iostream>
 
-using namespace std;
+
+#include "ransac.h"
+#include "test.h"
 
 int main() {
-    cout << "Hello, World!" << endl;
-    cout << "What is happening here ?";
+    testSample();
     return 0;
 }
