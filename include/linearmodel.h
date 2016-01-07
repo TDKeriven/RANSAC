@@ -8,13 +8,18 @@
 #include <opencv2/core.hpp>
 
 using namespace cv;
+using cv::Point2f;
 
 // TODO: implement these classes
-class LineModel {
+
+//We set ourselves in 2 dimensions
+class LinearModel {
+private:
+    Point2f normal;
+    float distanceToOrigin;
+
 public:
-
-
-
+    
 };
 
 #endif //RANSAC_MODEL_H

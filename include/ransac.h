@@ -5,9 +5,9 @@
 #ifndef RANSAC_RANSAC_H
 #define RANSAC_RANSAC_H
 
-#include <opencv2/highgui/highgui.hpp>
 #include <vector>
 #include <random>
+#include <opencv2/core.hpp>
 #include "model.h"
 
 //TODO: add OpenCV lib use to process images and points (for the modelling)
@@ -20,6 +20,7 @@ private:
     double probability; //probability for drawing an outlier free subset
     int minS; //minimal number of data element to correctly estimate the model
     double threshold; //Threshold which defines if a data element, di, agrees with model M.
+    std::vector<dataType> *inliers;
     Model model;
 
 public:
@@ -59,6 +60,7 @@ public:
                 N = log(1 - probability) / log(1 - pow(consensusSet.size() / (double) size, minS));
             }
         }
+        inliers = &maximalConsensusSet;
         model = estimateModelFromSample(maximalConsensusSet);
     }
 
