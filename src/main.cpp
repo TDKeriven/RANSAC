@@ -5,6 +5,7 @@
 #include "test.h"
 
 int main() {
-    testSample();
+//    testSample();
+    testLinearRegression();
     return 0;
 }

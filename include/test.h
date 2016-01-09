@@ -10,5 +10,10 @@
 
 void testSample();
 
+//generates a dataset of size dataSize in the array data
+void generateData(int dataSize, Point2f **data);
+
+void testLinearRegression();
+
 
 #endif //RANSAC_TEST_H
