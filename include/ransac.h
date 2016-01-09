@@ -31,7 +31,7 @@ public:
 
     // main function of the algorithm
     // TODO: finish implementation of this
-    LinearModel &estimateModel() {
+    LinearModel estimateModel() {
         Point2f *maximalConsensusSet;
         int maximalConsensusSize = 0;
         double N = binomial(minS, size);
@@ -40,7 +40,7 @@ public:
             int consensusSize = 0;
             Point2f consensusSet[minS];
             Point2f *sample;
-            getRandomSample(data, size,sample, minS);
+            getRandomSample(data, size, sample, minS);
 //          TODO: implement this
 //          get the model from the random sample
             LinearModel curModel(consensusSet, minS);
@@ -58,7 +58,8 @@ public:
             }
         }
         inliers = maximalConsensusSet;
-        model = LinearModel(maximalConsensusSet, maximalConsensusSize);
+        LinearModel result(maximalConsensusSet, maximalConsensusSize);
+        return result;
     }
 
 

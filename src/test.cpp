@@ -43,10 +43,11 @@ void generateData(int dataSize, Point2f **data) {
 
 void testLinearRegression() {
     int dataSize = 100;
-    Point2f **dataPtr = new Point2f*;
+    Point2f **dataPtr = new Point2f *;
     generateData(dataSize, dataPtr);
     for (int i = 0; i < dataSize; i++) std::cout << *(*dataPtr + i);
     std::cout << std::endl;
+    //does not give the same result as the cout in generateData, for some strange reason. Type error ?
     LinearModel lmodel(*dataPtr, dataSize);
 //    std::cout << lmodel.getDistanceToOrigin();
 }
