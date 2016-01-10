@@ -31,14 +31,14 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     std::cout << "covar: " << covar << std::endl;
 
     var = var - pow(meanX, 2) / nSamplef;
-    covar = covar - prodX * prodY / nSamplef;
+    covar = covar - meanX * meanY / nSamplef; //Correction pily
 
 
     float a = 0.f;
     float b = 1.f;
     float c = 0.f;
 
-    a = -covar / var;
+    a = covar / var; //Correction pily changement de signe
     c = a * meanX - meanY;
 
     Point2f dir(a, b);
