@@ -32,7 +32,7 @@ void generateData(int dataSize, std::vector<Point2f> *data) {
     // perfectly linear data
     std::vector<Point2f> dataSample;
     for (int i = 0; i < dataSize; i++) {
-        dataSample.push_back(Point2f(i, i));
+        dataSample.push_back(Point2f(i, i+2));
     }
 //    for (int i = 0; i < dataSize; i++) std::cout << dataSample[i];
 //    std::cout << std::endl;
@@ -49,5 +49,5 @@ void testLinearRegression() {
 //    std::cout << std::endl;
     LinearModel lmodel(data, dataSize);
     std::cout << "Linear model found : " << lmodel << std::endl;
-    std::cout << "Linear model should be : " << LinearModel(Point2f(1., 1.), 0) << std::endl;
+    std::cout << "Linear model should be : " << LinearModel(Point2f(1., 1.), 2) << std::endl;
 }

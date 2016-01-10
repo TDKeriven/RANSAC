@@ -39,7 +39,7 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     float c = 0.f;
 
     a = covar / var; //Correction pily changement de signe
-    c = a * meanX - meanY;
+    c = -a * meanX/nSamplef + meanY/nSamplef;
 
     Point2f dir(a, b);
     direction = dir;
