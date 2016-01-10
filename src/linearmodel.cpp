@@ -18,7 +18,6 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     float covar = 0.f;
     float prodX = 0.f;
     float prodY = 0.f;
-    std::cout << var;
 
 
     for (int i = 0; i < nSamplef; i++) {
@@ -32,24 +31,22 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
         prodY *= (dataSample[i]).y;
         covar += (dataSample[i]).x * (dataSample[i]).y;
     }
-//    std::cout << std::endl;
+    std::cout << std::endl;
 
-//    var = var - pow(meanX, 2) / nSamplef;
-//    covar = covar - prodX * prodY / nSamplef;
-//
-//
-//    float a = 0.;
-//    float b = 1.;
-//    float c = 0.;
-//
-//    a = -covar / var;
-//    c = a * meanX - meanY;
-//
-//    Point2f dir(a, b);
-//    direction = dir;
-//    distanceToOrigin = c;
-//
-//    std::cout << a;
+    var = var - pow(meanX, 2) / nSamplef;
+    covar = covar - prodX * prodY / nSamplef;
+
+
+    float a = 0.;
+    float b = 1.;
+    float c = 0.;
+
+    a = -covar / var;
+    c = a * meanX - meanY;
+
+    Point2f dir(a, b);
+    direction = dir;
+    distanceToOrigin = c;
 
 }
 
@@ -71,6 +68,6 @@ double LinearModel::getDistanceToOrigin() const {
 
 std::ostream &operator<<(std::ostream &ostream, const LinearModel &model) {
     ostream << "Direction: " << model.getDirection();
-    ostream << ", Distance to origin:" << model.getDistanceToOrigin();
+    ostream << ", Distance to origin: " << model.getDistanceToOrigin();
     return ostream;
 }

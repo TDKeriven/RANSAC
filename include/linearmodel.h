@@ -29,6 +29,6 @@ public:
 
 };
 
-std::ostream &operator<<(std::ostream ostream, const LinearModel model);
+std::ostream &operator<<(std::ostream& ostream, const LinearModel &model);
 
 #endif //RANSAC_MODEL_H

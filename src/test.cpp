@@ -46,8 +46,6 @@ void testLinearRegression() {
     generateData(dataSize, &data);
 //    for (int i = 0; i < dataSize; i++) std::cout << data[i] << " ";
 //    std::cout << std::endl;
-    //does not give the same result as the cout in generateData, for some strange reason. Type error ?
     LinearModel lmodel(data, dataSize);
-//    std::cout << lmodel << std::endl;
-    std::cout << lmodel.getDistanceToOrigin();
+    std::cout << lmodel << std::endl;
 }
