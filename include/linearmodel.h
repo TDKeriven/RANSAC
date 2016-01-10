@@ -9,7 +9,6 @@
 
 using namespace cv;
 
-// TODO: implement these classes
 
 //We set ourselves in 2 dimensions
 class LinearModel {

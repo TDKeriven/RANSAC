@@ -7,7 +7,6 @@
 #include <iostream>
 
 // Ordinary least squares regression estimate on a Point2f array of size nSample
-//TODO: figure out why this returns NAN !!
 LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     distanceToOrigin = 0.f;
     Point2f zero = Point2f(0., 0.);

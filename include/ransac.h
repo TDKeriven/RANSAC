@@ -30,7 +30,7 @@ public:
 
 
     // main function of the algorithm
-    // TODO: finish implementation of this
+    // TODO: test this
     LinearModel estimateModel() {
         std::vector<Point2f> maximalConsensusSet;
         int maximalConsensusSize = 0;
@@ -41,7 +41,6 @@ public:
             std::vector<Point2f> consensusSet;
             std::vector<Point2f> sample;
             getRandomSample(data, size, sample, minS);
-//          TODO: implement this
 //          get the model from the random sample
             LinearModel curModel(consensusSet, minS);
             for (int j = 0; j < size; j++) {
