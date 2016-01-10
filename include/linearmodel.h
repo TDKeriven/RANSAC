@@ -13,19 +13,19 @@ using namespace cv;
 //We set ourselves in 2 dimensions
 class LinearModel {
 private:
-    Point2f direction;
+    Point2f normale;
     float distanceToOrigin;
 
 public:
     LinearModel(std::vector<Point2f> dataSample, int nSample);
 
-    LinearModel(Point2f direction, double distanceToOrigin);
+    LinearModel(Point2f normale, double distanceToOrigin);
 
     double distance(const Point2f &point) const;
 
     bool agree(const Point2f &point, double threshold) const;
 
-    Point2f getDirection() const;
+    Point2f getNormale() const;
 
     double getDistanceToOrigin() const;
 

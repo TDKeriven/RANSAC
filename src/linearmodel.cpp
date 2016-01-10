@@ -43,26 +43,28 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     float b = 1.f;
     float c = 0.f;
 
-    a = covar / var; 
+    a = covar / var;
     c = -a * meanX + meanY;
 
-    Point2f dir(a, b);
-    direction = dir;
-    distanceToOrigin = c;
+    Point2f n(-b/sqrt(a*a+b*b), a/sqrt(a*a+b*b));
+    normale = n;
+
+    Point2f oao(0 , c);
+    distanceToOrigin = oao.ddot(normale) ;
 
 }
 
 
 double LinearModel::distance(const Point2f &point) const {
-    return abs(direction.ddot(point) + distanceToOrigin) / norm(point);
+    return abs(normale.ddot(point) + distanceToOrigin) ;
 }
 
 bool LinearModel::agree(const Point2f &point, double threshold) const {
     return distance(point) < threshold;
 }
 
-Point2f LinearModel::getDirection() const {
-    return direction;
+Point2f LinearModel::getNormale() const {
+    return normale;
 }
 
 double LinearModel::getDistanceToOrigin() const {
@@ -70,10 +72,10 @@ double LinearModel::getDistanceToOrigin() const {
 }
 
 std::ostream &operator<<(std::ostream &ostream, const LinearModel &model) {
-    ostream << "Direction: " << model.getDirection();
+    ostream << "Normale: " << model.getNormale();
     ostream << ", Distance to origin: " << model.getDistanceToOrigin();
     return ostream;
 }
 
-LinearModel::LinearModel(Point2f direction, double distanceToOrigin) : direction(direction),
+LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : normale(normale),
                                                                        distanceToOrigin(distanceToOrigin) { }

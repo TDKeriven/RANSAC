@@ -49,5 +49,5 @@ void testLinearRegression() {
 //    std::cout << std::endl;
     LinearModel lmodel(data, dataSize);
     std::cout << "Linear model found : " << lmodel << std::endl;
-    std::cout << "Linear model should be : " << LinearModel(Point2f(1., 1.), 2) << std::endl;
+    std::cout << "Linear model should be : " << LinearModel(Point2f(-0.7, 0.7), 1.4) << std::endl;
 }
