@@ -16,5 +16,6 @@ void generateData(int dataSize, std::vector<Point2f> data);
 
 void testLinearRegression();
 
+void testRansac();
 
 #endif //RANSAC_TEST_H

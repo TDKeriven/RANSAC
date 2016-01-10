@@ -27,10 +27,10 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
         prodY *= (dataSample[i]).y;
         covar += (dataSample[i]).x * (dataSample[i]).y;
     }
-    std::cout << std::endl << "Var: " << var << std::endl;
-    std::cout << "meanX: " << meanX << std::endl;
-    std::cout << "meanY: " << meanY << std::endl;
-    std::cout << "covar: " << covar << std::endl;
+  //  std::cout << std::endl << "Var: " << var << std::endl;
+  //  std::cout << "meanX: " << meanX << std::endl;
+  //  std::cout << "meanY: " << meanY << std::endl;
+  //  std::cout << "covar: " << covar << std::endl;
 
     var = var - pow(sumX, 2) / nSamplef;
     covar = covar - sumX * sumY / nSamplef;
@@ -76,6 +76,8 @@ std::ostream &operator<<(std::ostream &ostream, const LinearModel &model) {
     ostream << ", Distance to origin: " << model.getDistanceToOrigin();
     return ostream;
 }
+
+
 
 LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : normale(normale),
                                                                        distanceToOrigin(distanceToOrigin) { }

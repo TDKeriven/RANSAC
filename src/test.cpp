@@ -51,3 +51,22 @@ void testLinearRegression() {
     std::cout << "Linear model found : " << lmodel << std::endl;
     std::cout << "Linear model should be : " << LinearModel(Point2f(-0.7, 0.7), 1.4) << std::endl;
 }
+
+void testRansac(){
+
+    int dataSize = 100;
+    std::vector<Point2f> data;
+    generateData(dataSize, &data);
+    double proba,threshold;
+    int minS;
+    std::cout << "probability ?" << std::endl;
+    std::cin >> proba;
+    std::cout << "nb de donnees dans le modele ?" << std::endl;
+    std::cin >> minS;
+    std::cout << "threshold ?" << std::endl;
+    std::cin >> threshold;
+    RANSAC r=RANSAC(data,dataSize, proba, minS, threshold);
+    LinearModel model=r.estimateModel();
+    std::cout << "RANSAC found: " << model << std::endl;
+
+}

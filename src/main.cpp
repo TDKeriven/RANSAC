@@ -7,5 +7,6 @@
 int main() {
 //    testSample();
     testLinearRegression();
+    testRansac();
     return 0;
 }
