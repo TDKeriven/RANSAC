@@ -7,11 +7,12 @@
 
 #include <iostream>
 #include "ransac.h"
+#include <vector>
 
 void testSample();
 
 //generates a dataset of size dataSize in the array data
-void generateData(int dataSize, Point2f **data);
+void generateData(int dataSize, std::vector<Point2f> data);
 
 void testLinearRegression();
 

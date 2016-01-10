@@ -18,7 +18,7 @@ private:
     float distanceToOrigin;
 
 public:
-    LinearModel(Point2f *dataSample, int nSample);
+    LinearModel(std::vector<Point2f> dataSample, int nSample);
 
     double distance(const Point2f &point) const;
 

@@ -8,7 +8,8 @@
 
 // Ordinary least squares regression estimate on a Point2f array of size nSample
 //TODO: figure out why this returns NAN !!
-LinearModel::LinearModel(Point2f *dataSample, int nSample) : distanceToOrigin(0.) {
+LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
+    distanceToOrigin = 0.f;
     Point2f zero = Point2f(0., 0.);
     direction = zero;
     float nSamplef = (float) nSample;
@@ -25,12 +26,12 @@ LinearModel::LinearModel(Point2f *dataSample, int nSample) : distanceToOrigin(0.
 
 //        std::cout << (*(dataSample + i)).x ;
 //        std::cout << pow((*(dataSample + i)).x, 2) << std::endl;
-        var += pow((dataSample + i)->x, 2);
-        meanX += (dataSample + i)->x;
-        meanY += (dataSample + i)->y;
-        prodX *= (dataSample + i)->x;
-        prodY *= (dataSample + i)->y;
-        covar += (dataSample + i)->x * (dataSample + i)->y;
+        var += pow((dataSample[i]).x, 2);
+        meanX += (dataSample[i]).x;
+        meanY += (dataSample[i]).y;
+        prodX *= (dataSample[i]).x;
+        prodY *= (dataSample[i]).y;
+        covar += (dataSample[i]).x * (dataSample[i]).y;
     }
 //    std::cout << std::endl;
 
