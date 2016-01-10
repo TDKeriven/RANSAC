@@ -19,6 +19,8 @@ private:
 public:
     LinearModel(std::vector<Point2f> dataSample, int nSample);
 
+    LinearModel(Point2f direction, double distanceToOrigin);
+
     double distance(const Point2f &point) const;
 
     bool agree(const Point2f &point, double threshold) const;

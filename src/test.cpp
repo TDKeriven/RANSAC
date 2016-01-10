@@ -44,8 +44,10 @@ void testLinearRegression() {
     int dataSize = 100;
     std::vector<Point2f> data;
     generateData(dataSize, &data);
-//    for (int i = 0; i < dataSize; i++) std::cout << data[i] << " ";
+    std::cout << "Data is: " << std::endl;
+    for (int i = 0; i < dataSize; i++) std::cout << data[i] << " ";
 //    std::cout << std::endl;
     LinearModel lmodel(data, dataSize);
-    std::cout << lmodel << std::endl;
+    std::cout << "Linear model found : " << lmodel << std::endl;
+    std::cout << "Linear model should be : " << LinearModel(Point2f(1., 1.), 0) << std::endl;
 }
