@@ -9,6 +9,7 @@
 #include <random>
 #include <opencv2/core.hpp>
 #include "linearmodel.h"
+#include <iostream>
 
 //TODO: add OpenCV lib use to process images and points (for the modelling)
 
@@ -42,7 +43,7 @@ public:
             std::vector<Point2f> sample;
             getRandomSample(data, size, sample, minS);
 //          get the model from the random sample
-            LinearModel curModel(consensusSet, minS);
+            LinearModel curModel(sample, minS);
             for (int j = 0; j < size; j++) {
                 if (curModel.agree(data[j], threshold)) {
                     consensusSet[j] = (data[j]);
@@ -61,6 +62,10 @@ public:
         return result;
     }
 
+    //return model
+    LinearModel getModel(){
+        return model;
+    }
 
     //simple efficent binomal coefficient function
     static double binomial(int k, int n) {
@@ -87,6 +92,7 @@ public:
         return sample;
     }
 };
+
 
 
 #endif //RANSAC_RANSAC_H

@@ -66,7 +66,7 @@ void testRansac(){
     std::cout << "threshold ?" << std::endl;
     std::cin >> threshold;
     RANSAC r=RANSAC(data,dataSize, proba, minS, threshold);
-    LinearModel model=r.estimateModel();
+    LinearModel model=r.getModel();
     std::cout << "RANSAC found: " << model << std::endl;
 
 }
