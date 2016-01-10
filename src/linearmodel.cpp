@@ -8,9 +8,6 @@
 
 // Ordinary least squares regression estimate on a Point2f array of size nSample
 LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
-    distanceToOrigin = 0.f;
-    Point2f zero = Point2f(0., 0.);
-    direction = zero;
     float nSamplef = (float) nSample;
     float var = 0.f;
     float meanX = 0.f;
@@ -28,7 +25,10 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
         prodY *= (dataSample[i]).y;
         covar += (dataSample[i]).x * (dataSample[i]).y;
     }
-    std::cout << std::endl;
+    std::cout << std::endl << "Var: " << var << std::endl;
+    std::cout << "meanX: " << meanX << std::endl;
+    std::cout << "meanY: " << meanY << std::endl;
+    std::cout << "covar: " << covar << std::endl;
 
     var = var - pow(meanX, 2) / nSamplef;
     covar = covar - prodX * prodY / nSamplef;
