@@ -21,11 +21,11 @@ private:
     int minS; //minimal number of data element to correctly estimate the model
     double threshold; //Threshold which defines if a data element, di, agrees with model M.
     std::vector<Point2f> inliers;
-    LinearModel model;
+    //LinearModel model;
 
 public:
     RANSAC(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold) :
-            data(data), probability(probability), minS(minS), size(dataSize), model(estimateModel()) {
+            data(data), probability(probability), minS(minS), size(dataSize)/*, model(estimateModel())*/ {
         this->data = data;
     }
 
@@ -35,8 +35,11 @@ public:
     LinearModel estimateModel() {
         std::vector<Point2f> maximalConsensusSet;
         int maximalConsensusSize = 0;
-        double N = binomial(minS, size);
+        std::cout<<"datesize is "  << size <<std::endl;
+        double N = binomial(size, minS);
         // iterate N times :
+        std::cout<<"N is" << N << std::endl;
+        std::cout<<N << std::endl;
         for (int i = 0; i < N; i++) {
             int consensusSize = 0;
             std::vector<Point2f> consensusSet;
@@ -61,19 +64,35 @@ public:
         LinearModel result(maximalConsensusSet, maximalConsensusSize);
         return result;
     }
-
+/*
     //return model
     LinearModel getModel(){
         return model;
     }
+*/
 
-    //simple efficent binomal coefficient function
-    static double binomial(int k, int n) {
-        double res = 0.;
-        for (int i = 0; i < k; i++) {
-            res *= ((double) n + 1 - i) / (double) i;
-        }
-        return res;
+    double Factorial(double nValue)
+    {
+        double result = nValue;
+        double result_next;
+        double pc = nValue;
+        do
+        {
+            result_next = result*(pc-1);
+            result = result_next;
+            pc--;
+        }while(pc>2);
+        nValue = result;
+        return nValue;
+    }
+
+    double binomial(double nValue, double nValue2)
+    {
+        double result;
+        if(nValue2 == 1)return nValue;
+        result = (Factorial(nValue))/(Factorial(nValue2)*Factorial((nValue - nValue2)));
+        nValue2 = result;
+        return nValue2;
     }
 
     // sampling with remplacement.
