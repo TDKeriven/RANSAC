@@ -48,19 +48,18 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
 
     Point2f n(-b/sqrt(a*a+b*b), a/sqrt(a*a+b*b));
     normale = n;
-
     Point2f oao(0 , c);
-    distanceToOrigin = oao.ddot(normale) ;
+    distanceToOrigin = oao.ddot(normale);
 
 }
 
 
 double LinearModel::distance(const Point2f &point) const {
-    return abs(normale.ddot(point) + distanceToOrigin) ;
+    return abs(normale.ddot(point) - distanceToOrigin) ;
 }
 
 bool LinearModel::agree(const Point2f &point, double threshold) const {
-    return distance(point) < threshold;
+    return threshold-distance(point)>0;
 }
 
 Point2f LinearModel::getNormale() const {

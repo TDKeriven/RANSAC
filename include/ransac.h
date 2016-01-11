@@ -39,7 +39,6 @@ public:
         double N = binomial(size, minS);
         // iterate N times :
         std::cout<<"N is" << N << std::endl;
-        std::cout<<N << std::endl;
         for (int i = 0; i < N; i++) {
             int consensusSize = 0;
             std::vector<Point2f> consensusSet;
@@ -47,7 +46,10 @@ public:
             getRandomSample(data, size, sample, minS);
 //          get the model from the random sample
             LinearModel curModel(sample, minS);
+            std::cout<<curModel.getDistanceToOrigin()<<std::endl;
             for (int j = 0; j < size; j++) {
+                std::cout<<data[j].x<<" "<<data[j].y<<std::endl;
+                std::cout<<curModel.agree(data[j],threshold)<<std::endl;
                 if (curModel.agree(data[j], threshold)) {
                     consensusSet[j] = (data[j]);
                     consensusSize++;
@@ -61,8 +63,10 @@ public:
             }
         }
         inliers = maximalConsensusSet;
+        std::cout<<"hello"<<std::endl;
         LinearModel result(maximalConsensusSet, maximalConsensusSize);
         return result;
+
     }
 /*
     //return model

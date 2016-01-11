@@ -14,7 +14,7 @@ using namespace cv;
 class LinearModel {
 private:
     Point2f normale;
-    float distanceToOrigin;
+    double distanceToOrigin;
 
 public:
     LinearModel(std::vector<Point2f> dataSample, int nSample);
