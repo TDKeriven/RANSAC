@@ -7,7 +7,7 @@
 #include <iostream>
 
 // Ordinary least squares regression estimate on a Point2f array of size nSample
-LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) : Model() {
+LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     float nSamplef = (float) nSample;
     float var = 0.f;
     float sumX = 0.f;
@@ -52,7 +52,7 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) : Model()
 
 }
 
-LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : Model(), normale(normale),
+LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : normale(normale),
                                                                      distanceToOrigin(distanceToOrigin) { }
 
 double LinearModel::distance(const Point2f &point) const {
