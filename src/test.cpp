@@ -30,10 +30,12 @@ void testSample() {
 // generates data to data array. Must past the pointer to data (which is itself a pointer to Point2f)
 void generateData(int dataSize, std::vector<Point2f> *data) {
     // perfectly linear data
-    std::vector<Point2f> dataSample;
+    std::vector <Point2f> dataSample;
     for (int i = 0; i < dataSize; i++) {
-        dataSample.push_back(Point2f(i, i+2));
+        dataSample.push_back(Point2f(i, i + 2));
     }
+    //one outlier :
+    dataSample.push_back(Point2f(-10., 3.));
 //    for (int i = 0; i < dataSize; i++) std::cout << dataSample[i];
 //    std::cout << std::endl;
     *data = dataSample;
@@ -52,21 +54,38 @@ void testLinearRegression() {
     std::cout << "Linear model should be : " << LinearModel(Point2f(-0.7, 0.7), 1.4) << std::endl;
 }
 
-void testRansac(){
+void testRansac() {
 
     int dataSize = 100;
-    std::vector<Point2f> data;
+    std::vector <Point2f> data;
     generateData(dataSize, &data);
-    double proba,threshold;
+    double proba, threshold;
     int minS;
     std::cout << "probability ?" << std::endl;
-    std::cin >> proba;
+    proba = 0.7;
     std::cout << "nb de donnees dans le modele ?" << std::endl;
-    std::cin >> minS;
+    minS = 20;
     std::cout << "threshold ?" << std::endl;
-    std::cin >> threshold;
-    RANSAC r=RANSAC(data,dataSize, proba, minS, threshold);
-    LinearModel model=r.estimateModel();
+    threshold = 0.5;
+    RANSAC r = RANSAC(data, dataSize + 1, proba, minS, threshold);
+    LinearModel model = r.estimateLinearModel();
     std::cout << "RANSAC found: " << model << std::endl;
+    std::cout << "Inliers: " << std::endl;
+    for (int i = 0; i < r.getInliers().size(); i++) {
+        std::cout << r.getInliers()[i];
+    }
+    std::cout << std::endl;
+    std::cout << "Outliers: " << std::endl;
+    for (int i = 0; i < r.getOutliers().size(); i++) {
+        std::cout << r.getOutliers()[i];
+    }
 
+}
+
+void testBinomial() {
+    for (int n = 1; n < 100; n += 10) {
+        for (int k = 1; k < n; k += 5) {
+            std::cout << k << ", " << n << ": " << RANSAC::binomial(n, k) << std::endl;
+        }
+    }
 }

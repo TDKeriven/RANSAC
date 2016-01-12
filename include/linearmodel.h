@@ -2,13 +2,12 @@
 // Created by geoffrey on 31/12/15.
 //
 
-#ifndef RANSAC_MODEL_H
-#define RANSAC_MODEL_H
+#ifndef RANSAC_LINEAR_MODEL_H
+#define RANSAC_LINEAR_MODEL_H
 
 #include <opencv2/core.hpp>
 
 using namespace cv;
-
 
 //We set ourselves in 2 dimensions
 class LinearModel {
@@ -21,9 +20,9 @@ public:
 
     LinearModel(Point2f normale, double distanceToOrigin);
 
-    double distance(const Point2f &point) const;
+    virtual double distance(const Point2f &point) const;
 
-    bool agree(const Point2f &point, double threshold) const;
+    virtual bool agree(const Point2f &point, double threshold) const;
 
     Point2f getNormale() const;
 
@@ -31,6 +30,6 @@ public:
 
 };
 
-std::ostream &operator<<(std::ostream& ostream, const LinearModel &model);
+std::ostream &operator<<(std::ostream &ostream, const LinearModel &model);
 
-#endif //RANSAC_MODEL_H
+#endif //RANSAC_LINEAR_MODEL_H

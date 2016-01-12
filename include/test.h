@@ -18,4 +18,6 @@ void testLinearRegression();
 
 void testRansac();
 
+void testBinomial();
+
 #endif //RANSAC_TEST_H

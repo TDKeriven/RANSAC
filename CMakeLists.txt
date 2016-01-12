@@ -5,4 +5,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 include_directories(include/)
-add_executable(RANSAC ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/utils.cpp include/utils.h)
+add_executable(RANSAC ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/utils.cpp include/utils.h include/model.h)

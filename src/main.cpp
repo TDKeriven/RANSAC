@@ -6,6 +6,7 @@
 
 int main() {
 //    testSample();
+//    testBinomial();
     testLinearRegression();
     testRansac();
     return 0;

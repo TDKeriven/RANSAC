@@ -7,7 +7,7 @@
 #include <iostream>
 
 // Ordinary least squares regression estimate on a Point2f array of size nSample
-LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
+LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) : Model() {
     float nSamplef = (float) nSample;
     float var = 0.f;
     float sumX = 0.f;
@@ -27,16 +27,15 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
         prodY *= (dataSample[i]).y;
         covar += (dataSample[i]).x * (dataSample[i]).y;
     }
-  //  std::cout << std::endl << "Var: " << var << std::endl;
-  //  std::cout << "meanX: " << meanX << std::endl;
-  //  std::cout << "meanY: " << meanY << std::endl;
-  //  std::cout << "covar: " << covar << std::endl;
+    //  std::cout << std::endl << "Var: " << var << std::endl;
+    //  std::cout << "meanX: " << meanX << std::endl;
+    //  std::cout << "meanY: " << meanY << std::endl;
+    //  std::cout << "covar: " << covar << std::endl;
 
     var = var - pow(sumX, 2) / nSamplef;
     covar = covar - sumX * sumY / nSamplef;
-    meanX=sumX/nSamplef;
-    meanY=sumY/nSamplef;
-
+    meanX = sumX / nSamplef;
+    meanY = sumY / nSamplef;
 
 
     float a = 0.f;
@@ -46,20 +45,22 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample, int nSample) {
     a = covar / var;
     c = -a * meanX + meanY;
 
-    Point2f n(-b/sqrt(a*a+b*b), a/sqrt(a*a+b*b));
+    Point2f n(-b / sqrt(a * a + b * b), a / sqrt(a * a + b * b));
     normale = n;
-    Point2f oao(0 , c);
+    Point2f oao(0, c);
     distanceToOrigin = oao.ddot(normale);
 
 }
 
+LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : Model(), normale(normale),
+                                                                     distanceToOrigin(distanceToOrigin) { }
 
 double LinearModel::distance(const Point2f &point) const {
-    return abs(normale.ddot(point) - distanceToOrigin) ;
+    return abs(normale.ddot(point) - distanceToOrigin);
 }
 
 bool LinearModel::agree(const Point2f &point, double threshold) const {
-    return threshold-distance(point)>0;
+    return threshold - distance(point) > 0;
 }
 
 Point2f LinearModel::getNormale() const {
@@ -77,6 +78,3 @@ std::ostream &operator<<(std::ostream &ostream, const LinearModel &model) {
 }
 
 
-
-LinearModel::LinearModel(Point2f normale, double distanceToOrigin) : normale(normale),
-                                                                       distanceToOrigin(distanceToOrigin) { }
