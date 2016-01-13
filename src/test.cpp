@@ -5,6 +5,9 @@
 #include "test.h"
 
 
+using namespace std;
+using namespace cv;
+
 void testSample() {
     int sampleSize[5] = {10, 20, 40, 50, 100};
     int dataSize[6] = {0, 100, 200, 500, 1000, 10000};
@@ -27,10 +30,10 @@ void testSample() {
 
 }
 
-// generates data to data array. Must past the pointer to data (which is itself a pointer to Point2f)
+// generates data to data array. Must pass the pointer to data
 void generateData(int dataSize, std::vector<Point2f> *data) {
     // perfectly linear data
-    std::vector <Point2f> dataSample;
+    std::vector<Point2f> dataSample;
     for (int i = 0; i < dataSize; i++) {
         dataSample.push_back(Point2f(i, i + 2));
     }
@@ -40,7 +43,6 @@ void generateData(int dataSize, std::vector<Point2f> *data) {
 //    std::cout << std::endl;
     *data = dataSample;
 }
-
 
 void testLinearRegression() {
     int dataSize = 100;
@@ -57,7 +59,7 @@ void testLinearRegression() {
 void testRansac() {
 
     int dataSize = 100;
-    std::vector <Point2f> data;
+    std::vector<Point2f> data;
     generateData(dataSize, &data);
     double proba, threshold;
     int minS;
@@ -88,4 +90,19 @@ void testBinomial() {
             std::cout << k << ", " << n << ": " << RANSAC::binomial(n, k) << std::endl;
         }
     }
+}
+
+void testImageDisplay() {
+    Mat image;
+    image = imread("/home/geoffrey/RANSAC/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
+    // Check for invalid input
+    if (image.empty()) {
+        cout << "Could not open or find the image" << endl;
+        return;
+    }
+    // Show our image inside it.
+    imshow("Display window", image);
+
+    waitKey(0); // Wait for a keystroke in the window
+    return;
 }

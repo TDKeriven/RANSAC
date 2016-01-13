@@ -7,7 +7,9 @@
 int main() {
 //    testSample();
 //    testBinomial();
-    testLinearRegression();
-    testRansac();
+//    testLinearRegression();
+//    testRansac();
+    testImageDisplay();
+
     return 0;
 }

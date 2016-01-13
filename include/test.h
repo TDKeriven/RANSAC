@@ -5,6 +5,10 @@
 #ifndef RANSAC_TEST_H
 #define RANSAC_TEST_H
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 #include "ransac.h"
 #include <vector>
@@ -19,5 +23,7 @@ void testLinearRegression();
 void testRansac();
 
 void testBinomial();
+
+void testImageDisplay();
 
 #endif //RANSAC_TEST_H
