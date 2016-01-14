@@ -22,7 +22,6 @@ public:
     //using opencv's findHomography with leastSquares method
     Homography(const vector<pair<Point2f, Point2f> > matchPoints);
 
-
 };
 
 #endif //RANSAC_HOMOGRAPHY_H

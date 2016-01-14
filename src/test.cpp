@@ -45,7 +45,7 @@ void generateData(int dataSize, std::vector<Point2f> *data) {
 }
 
 void testLinearRegression() {
-    int dataSize = 100;
+    int dataSize = 1000;
     std::vector<Point2f> data;
     generateData(dataSize, &data);
     std::cout << "Data is: " << std::endl;
@@ -58,18 +58,19 @@ void testLinearRegression() {
 
 void testRansac() {
 
-    int dataSize = 100;
+    int dataSize = 100000;
     std::vector<Point2f> data;
     generateData(dataSize, &data);
-    double proba, threshold;
+    double proba, threshold, nbit;
     int minS;
     std::cout << "probability ?" << std::endl;
     proba = 0.7;
     std::cout << "nb de donnees dans le modele ?" << std::endl;
-    minS = 20;
+    minS = 504;
     std::cout << "threshold ?" << std::endl;
-    threshold = 0.5;
-    RANSAC r = RANSAC(data, dataSize + 1, proba, minS, threshold);
+    threshold = 0.2;
+    nbit=900;
+    RANSAC r = RANSAC(data, dataSize + 1, proba, minS, threshold,nbit);
     LinearModel model = r.estimateLinearModel();
     std::cout << "RANSAC found: " << model << std::endl;
     std::cout << "Inliers: " << std::endl;
@@ -83,7 +84,7 @@ void testRansac() {
     }
 
 }
-
+/*
 void testBinomial() {
     for (int n = 1; n < 100; n += 10) {
         for (int k = 1; k < n; k += 5) {
@@ -91,14 +92,17 @@ void testBinomial() {
         }
     }
 }
-
+*/
 void testImageDisplay() {
     Mat image;
     image = imread("/home/geoffrey/RANSAC/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
     // Check for invalid input
     if (image.empty()) {
-        cout << "Could not open or find the image" << endl;
-        return;
+        image=imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg",IMREAD_UNCHANGED);
+        if (image.empty()) {
+            cout << "Could not open or find the image" << endl;
+            return;
+        }
     }
     // Show our image inside it.
     imshow("Display window", image);
