@@ -20,14 +20,14 @@ private:
     double probability; //probability for drawing an outlier free subset
     int minS; //minimal number of data element to correctly estimate the model
     double threshold; //Threshold which defines if a data element, di, agrees with model M.
-    double nbit; //nombre d'itérations nécessaire pour aboutir a un bon modèle (empirique)
+    int nbit; //nombre d'itérations nécessaire pour aboutir a un bon modèle (empirique)
     std::vector<Point2f> inliers;
     std::vector<Point2f> outliers;
     //LinearModel model;
 
 public:
-    RANSAC(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, double nbit) :
-            data(data), probability(probability), minS(minS), size(dataSize),nbit(nbit)/*, model(estimateModel())*/ {
+    RANSAC(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
+            data(data), probability(probability), minS(minS), size(dataSize),nbit(nbit) {
         this->data = data;
     }
 

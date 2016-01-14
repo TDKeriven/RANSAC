@@ -61,15 +61,15 @@ void testRansac() {
     int dataSize = 100000;
     std::vector<Point2f> data;
     generateData(dataSize, &data);
-    double proba, threshold, nbit;
-    int minS;
+    double proba, threshold;
+    int minS, nbit;
     std::cout << "probability ?" << std::endl;
     proba = 0.7;
     std::cout << "nb de donnees dans le modele ?" << std::endl;
     minS = 504;
     std::cout << "threshold ?" << std::endl;
     threshold = 0.2;
-    nbit=900;
+    nbit=90;
     RANSAC r = RANSAC(data, dataSize + 1, proba, minS, threshold,nbit);
     LinearModel model = r.estimateLinearModel();
     std::cout << "RANSAC found: " << model << std::endl;
@@ -100,7 +100,7 @@ void testImageDisplay() {
     if (image.empty()) {
         image=imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg",IMREAD_UNCHANGED);
         if (image.empty()) {
-            cout << "Could not open or find the image" << endl;
+            cout << "Image not found" << endl;
             return;
         }
     }
@@ -108,5 +108,29 @@ void testImageDisplay() {
     imshow("Display window", image);
 
     waitKey(0); // Wait for a keystroke in the window
+    return;
+}
+
+void testransachomography() {
+    double proba=0.7;
+    double threshold = 3;
+    int nbit=5000;
+    int minS=300;
+    vector<Mat> imgs;
+
+    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0007.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0008.jpg"));
+    imshow("im0",imgs[0]);
+    imshow("im1",imgs[1]);
+    imshow("im2",imgs[2]);
+
+    waitKey(0); // Wait for a keystroke in the window
+
+    merge f(imgs,proba, minS, threshold,nbit);
+    Mat res= f.mergeimages();
+
+    imshow("res",res);
+    waitKey(0);
     return;
 }

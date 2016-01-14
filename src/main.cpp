@@ -8,8 +8,8 @@ int main() {
 //    testSample();
 //    testBinomial();
 //   testLinearRegression();
-    testRansac();
+//    testRansac();
 //    testImageDisplay();
-
+testransachomography();
     return 0;
 }

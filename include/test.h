@@ -12,6 +12,8 @@
 #include <iostream>
 #include "ransac.h"
 #include <vector>
+#include "homography.h"
+#include "merge.h"
 
 void testSample();
 
@@ -25,5 +27,7 @@ void testRansac();
 void testBinomial();
 
 void testImageDisplay();
+
+void testransachomography();
 
 #endif //RANSAC_TEST_H
