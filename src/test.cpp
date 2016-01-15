@@ -5,8 +5,6 @@
 #include "test.h"
 
 
-using namespace std;
-using namespace cv;
 
 void testSample() {
     int sampleSize[5] = {10, 20, 40, 50, 100};
@@ -100,7 +98,7 @@ void testImageDisplay() {
     if (image.empty()) {
         image=imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg",IMREAD_UNCHANGED);
         if (image.empty()) {
-            cout << "Image not found" << endl;
+            std::cout << "Image not found" << endl;
             return;
         }
     }
@@ -127,8 +125,8 @@ void testransachomography() {
 
     waitKey(0); // Wait for a keystroke in the window
 
-    merge f(imgs,proba, minS, threshold,nbit);
-    Mat res= f.mergeimages();
+    mergeimages f(imgs[0], imgs[1], imgs[2], proba, minS, threshold, nbit);
+    Mat res= f.domergeimages();
 
     imshow("res",res);
     waitKey(0);

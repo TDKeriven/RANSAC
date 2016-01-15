@@ -9,5 +9,5 @@ include_directories(include/ ${OpenCV_INCLUDE_DIRS})
 project(RANSAC)
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 
-add_executable(RANSAC ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/utils.cpp include/utils.h include/homography.h src/homography.cpp src/ransachomography.cpp include/ransachomography.h src/merge.cpp include/merge.h)
+add_executable(RANSAC ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/utils.cpp include/utils.h include/homography.h src/homography.cpp src/ransachomography.cpp include/ransachomography.h src/mergeimages.cpp include/mergeimages.h)
 target_link_libraries(RANSAC ${OpenCV_LIBS} )

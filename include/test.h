@@ -13,7 +13,7 @@
 #include "ransac.h"
 #include <vector>
 #include "homography.h"
-#include "merge.h"
+#include "mergeimages.h"
 
 void testSample();
 
