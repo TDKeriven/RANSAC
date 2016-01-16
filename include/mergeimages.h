@@ -74,7 +74,7 @@ public:
             drawKeypoints(imgs[i], keypoints[i], keypointsofimg[i], Scalar::all(-1), DrawMatchesFlags::DEFAULT);
         }
 
-        return keypointsofimg[0];
+
 
         //imshow("keypoints I1", img_keypoints_1);
         //imshow("keypoints I2", img_keypoints_2);
@@ -82,15 +82,15 @@ public:
 
         cout << "Computing matching" << endl;
         /*Calcul du matching par force brute*/
-     /*   BFMatcher matcher(NORM_HAMMING);
+        BFMatcher matcher(NORM_HAMMING);
         vector<vector<DMatch>> nn_matches;
-        matcher.knnMatch(desc1, desc2, nn_matches, 2);
+        matcher.knnMatch(desc[0], desc[1], nn_matches, 2);
 
-        //Mat raw_matches_img;
-        //drawMatches(I1, kpts1, I2, kpts2, nn_matches, raw_matches_img);
+        Mat raw_matches_img;
+        drawMatches(imgs[0], keypoints[0],imgs[1],keypoints[2], nn_matches, raw_matches_img);
         //imshow("Raw matches", raw_matches_img);
         //waitKey(0);
-
+/*
         vector<Point2f> img1;
         vector<Point2f> img2;
 
@@ -105,6 +105,7 @@ public:
             matched2.push_back(kpts2[nn_matches[i][0].trainIdx]);
         }
         */
+        return raw_matches_img;
     }
 };
 
