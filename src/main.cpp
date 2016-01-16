@@ -1,7 +1,7 @@
 #include <iostream>
 
 
-#include "ransac.h"
+#include "ransacl.h"
 #include "test.h"
 
 int main() {

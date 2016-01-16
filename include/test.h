@@ -10,7 +10,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
-#include "ransac.h"
+#include "ransacl.h"
 #include <vector>
 #include "homography.h"
 #include "mergeimages.h"

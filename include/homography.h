@@ -6,6 +6,7 @@
 #define RANSAC_HOMOGRAPHY_H
 
 #include <opencv2/core.hpp>
+#include <vector>
 
 using namespace std;
 using namespace cv;

@@ -18,7 +18,7 @@ void testSample() {
                 data.push_back(Point2f(i, i));
             }
             std::vector<Point2f> sample;
-            RANSAC::getRandomSample(data, dSize, sample, sSize);
+            RANSACL::getRandomSample(data, dSize, sample, sSize);
             for (int i = 0; i < sSize; i++) {
                 std::cout << sample[i] << " ";
             }
@@ -68,7 +68,7 @@ void testRansac() {
     std::cout << "threshold ?" << std::endl;
     threshold = 0.2;
     nbit=90;
-    RANSAC r = RANSAC(data, dataSize + 1, proba, minS, threshold,nbit);
+    RANSACL r = RANSACL(data, dataSize + 1, proba, minS, threshold,nbit);
     LinearModel model = r.estimateLinearModel();
     std::cout << "RANSAC found: " << model << std::endl;
     std::cout << "Inliers: " << std::endl;

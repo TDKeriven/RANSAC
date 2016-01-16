@@ -10,6 +10,7 @@
 #include <opencv2/core.hpp>
 #include "linearmodel.h"
 #include <iostream>
+#include <opencv2/opencv.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgproc/types_c.h>
 #include <opencv2/features2d.hpp>
@@ -60,11 +61,13 @@ public:
 
         //REPRENDRE ICI !!!
         cout << "Computing key points" << endl;
-        Ptr<Feature2D> akaze = AKAZE::create("keypoints");
+        Ptr<Feature2D> akaze=AKAZE::create("AKAZE");
+
         for (int i=0;i<nbimg;i++){
-            akaze->detect(gimgs[i],keypoints[i],noArray());
+             akaze->detect(gimgs[i],keypoints[i],cv::Mat() );
             akaze->compute(gimgs[i],keypoints[i],desc[i]);
         }
+
         cout << "drawkeypiint" << endl;
         vector<Mat> keypointsofimg(nbimg);
         for (int i=0;i<nbimg;i++){
@@ -73,17 +76,11 @@ public:
 
         return keypointsofimg[0];
 
-        /*
-        akaze->detectAndCompute(gI1, noArray(), kpts1, desc1);
-        akaze->detectAndCompute(gI2, noArray(), kpts2, desc2);
-    */
-
-
         //imshow("keypoints I1", img_keypoints_1);
         //imshow("keypoints I2", img_keypoints_2);
         //waitKey(0);
 
-     //   cout << "Computing matching" << endl;
+        cout << "Computing matching" << endl;
         /*Calcul du matching par force brute*/
      /*   BFMatcher matcher(NORM_HAMMING);
         vector<vector<DMatch>> nn_matches;

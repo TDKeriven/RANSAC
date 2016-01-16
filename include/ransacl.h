@@ -13,7 +13,7 @@
 
 //TODO: add OpenCV lib use to process images and points (for the modelling)
 
-class RANSAC {
+class RANSACL {
 private:
     std::vector<Point2f> data; //vector of data
     int size; // data size
@@ -26,7 +26,7 @@ private:
     //LinearModel model;
 
 public:
-    RANSAC(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
+    RANSACL(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
             data(data), probability(probability), minS(minS), size(dataSize),nbit(nbit) {
         this->data = data;
     }

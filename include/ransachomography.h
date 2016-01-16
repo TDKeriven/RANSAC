@@ -31,7 +31,7 @@ private:
 
 
 public:
-    RANSACHOMOGRAPHY(vector<Point2f> data, int dataSize, double probability, int minS, double threshold, double nbit) :
+    RANSACHOMOGRAPHY(vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
             data(data), probability(probability), minS(minS), size(dataSize),nbit(nbit) {
     }
 
