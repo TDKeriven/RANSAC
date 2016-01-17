@@ -6,8 +6,11 @@
 #define RANSAC_LINEAR_MODEL_H
 
 #include <opencv2/core.hpp>
+#include <iostream>
+#include <utility>
 
 using namespace cv;
+using namespace std;
 
 //We set ourselves in 2 dimensions
 class LinearModel {
@@ -15,8 +18,15 @@ private:
     Point2f normale;
     double distanceToOrigin;
 
+
 public:
-    LinearModel(std::vector<Point2f> dataSample, int nSample);
+    const static int nSample = 2;
+
+    //return a LinearModel from 2 points
+    LinearModel(std::vector<Point2f> dataSample);
+
+    //return a linearRegression using the least squares cost function
+    LinearModel(std::vector<Point2f> dataSample, int size);
 
     LinearModel(Point2f normale, double distanceToOrigin);
 

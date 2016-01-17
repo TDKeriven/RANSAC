@@ -10,10 +10,13 @@
 #include <opencv2/core.hpp>
 #include "linearmodel.h"
 #include <iostream>
+#include "utils.h"
 
 //TODO: add OpenCV lib use to process images and points (for the modelling)
 
-class RANSACL {
+
+template<class Model>
+class Ransac {
 private:
     std::vector<Point2f> data; //vector of data
     int size; // data size
@@ -23,11 +26,10 @@ private:
     int nbit; //nombre d'itérations nécessaire pour aboutir a un bon modèle (empirique)
     std::vector<Point2f> inliers;
     std::vector<Point2f> outliers;
-    //LinearModel model;
 
 public:
-    RANSACL(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
-            data(data), probability(probability), minS(minS), size(dataSize),nbit(nbit) {
+    Ransac(std::vector<Point2f> data, int dataSize, double probability, int minS, double threshold, int nbit) :
+            data(data), probability(probability), minS(Model::nSample), size(dataSize), nbit(nbit) {
         this->data = data;
     }
 
@@ -41,8 +43,7 @@ public:
 
 
     // main function of the algorithm
-    // TODO: test this
-    LinearModel estimateLinearModel() {
+    Model estimateModel() {
         std::vector<Point2f> maximalConsensusSet;
         int maximalConsensusSize = 0;
         std::cout << "datesize is " << size << std::endl;
@@ -52,9 +53,10 @@ public:
             std::vector<Point2f> consensusSet;
             std::vector<Point2f> curOutliers;
             std::vector<Point2f> sample;
+//            Choose a random sample of the right size, depending on the model
             getRandomSample(data, size, sample, minS);
 //          get the model from the random sample
-            LinearModel curModel(sample, minS);
+            Model curModel(sample);
             for (int j = 0; j < size; j++) {
                 if (curModel.agree(data[j], threshold)) {
                     consensusSet.push_back(data[j]);
@@ -63,6 +65,8 @@ public:
                     curOutliers.push_back(data[j]);
                 }
             }
+            for (int i = 0; i < consensusSet.size(); i++)
+            std::cout << consensusSet[consensusSize - 1];
             if (consensusSize > maximalConsensusSize) {
                 maximalConsensusSet = consensusSet;
                 maximalConsensusSize = consensusSize;
@@ -72,18 +76,12 @@ public:
         }
         inliers = maximalConsensusSet;
 
-        LinearModel result(maximalConsensusSet, maximalConsensusSize);
+        Model result(maximalConsensusSet, maximalConsensusSize);
         return result;
-
     }
 
-/*
-    //return model
-    LinearModel getModel(){
-        return model;
-    }
-*/
-/*
+
+    /*
     static double factorial(double nValue) {
         if (nValue == 0) return 1;
         return nValue * factorial(nValue - 1);
@@ -96,21 +94,7 @@ public:
         return result;
     }
 */
-    // sampling with remplacement.
-    //TODO: sample with removal and not replacement
-    static std::vector<Point2f> &getRandomSample(std::vector<Point2f> data, int dataSize, std::vector<Point2f> &sample,
-                                                 int sampleSize) {
-        std::vector<Point2f> result;
-        if (data.empty() || sampleSize < 1) return sample;
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distribution(0, dataSize - 1);
-        for (int i = 0; i < sampleSize; i++) {
-            result.push_back(data[distribution(gen)]);
-        }
-        sample = result;
-        return sample;
-    }
+
 };
 
 

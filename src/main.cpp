@@ -1,15 +1,15 @@
 #include <iostream>
 
 
-#include "ransacl.h"
+#include "ransac.h"
 #include "test.h"
 
 int main() {
 //    testSample();
 //    testBinomial();
 //   testLinearRegression();
-//    testRansac();
+    testLinearRansac();
 //    testImageDisplay();
-testransachomography();
+// testransachomography();
     return 0;
 }

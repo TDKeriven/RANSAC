@@ -1,2 +1,2 @@
-# Generic RANSAC implementation in C++
+# Generic Ransac implementation in C++
 

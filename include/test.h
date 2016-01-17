@@ -9,9 +9,9 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <iostream>
-#include "ransacl.h"
 #include <vector>
+#include <iostream>
+#include "ransac.h"
 #include "homography.h"
 #include "mergeimages.h"
 
@@ -22,7 +22,7 @@ void generateData(int dataSize, std::vector<Point2f> data);
 
 void testLinearRegression();
 
-void testRansac();
+void testLinearRansac();
 
 void testBinomial();
 

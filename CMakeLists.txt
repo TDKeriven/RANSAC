@@ -6,8 +6,8 @@ SET(OpenCV_STATIC OFF)
 find_package( OpenCV REQUIRED )
 include_directories(include/ ${OpenCV_INCLUDE_DIRS})
 
-project(RANSAC)
+project(Ransac)
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 
-add_executable(RANSAC ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/ransacl.cpp include/ransacl.h src/utils.cpp include/utils.h include/homography.h src/homography.cpp src/ransachomography.cpp include/ransachomography.h src/mergeimages.cpp include/mergeimages.h)
-target_link_libraries(RANSAC ${OpenCV_LIBS} )
+add_executable(Ransac ${SOURCE_FILES} src/test.cpp include/test.h src/linearmodel.cpp include/linearmodel.h src/ransac.cpp include/ransac.h include/utils.h include/homography.h src/homography.cpp src/ransachomography.cpp include/ransachomography.h src/mergeimages.cpp include/mergeimages.h)
+target_link_libraries(Ransac ${OpenCV_LIBS} )

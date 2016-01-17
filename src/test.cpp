@@ -4,8 +4,6 @@
 
 #include "test.h"
 
-
-
 void testSample() {
     int sampleSize[5] = {10, 20, 40, 50, 100};
     int dataSize[6] = {0, 100, 200, 500, 1000, 10000};
@@ -18,7 +16,7 @@ void testSample() {
                 data.push_back(Point2f(i, i));
             }
             std::vector<Point2f> sample;
-            RANSACL::getRandomSample(data, dSize, sample, sSize);
+            getRandomSample(data, dSize, sample, sSize);
             for (int i = 0; i < sSize; i++) {
                 std::cout << sample[i] << " ";
             }
@@ -49,12 +47,12 @@ void testLinearRegression() {
     std::cout << "Data is: " << std::endl;
     for (int i = 0; i < dataSize; i++) std::cout << data[i] << " ";
 //    std::cout << std::endl;
-    LinearModel lmodel(data, dataSize);
+    LinearModel lmodel(data);
     std::cout << "Linear model found : " << lmodel << std::endl;
     std::cout << "Linear model should be : " << LinearModel(Point2f(-0.7, 0.7), 1.4) << std::endl;
 }
 
-void testRansac() {
+void testLinearRansac() {
 
     int dataSize = 100000;
     std::vector<Point2f> data;
@@ -67,10 +65,10 @@ void testRansac() {
     minS = 504;
     std::cout << "threshold ?" << std::endl;
     threshold = 0.2;
-    nbit=90;
-    RANSACL r = RANSACL(data, dataSize + 1, proba, minS, threshold,nbit);
-    LinearModel model = r.estimateLinearModel();
-    std::cout << "RANSAC found: " << model << std::endl;
+    nbit = 90;
+    Ransac<LinearModel> r = Ransac<LinearModel>(data, dataSize + 1, proba, minS, threshold, nbit);
+    LinearModel model = r.estimateModel();
+    std::cout << "Ransac found: " << model << std::endl;
     std::cout << "Inliers: " << std::endl;
     for (int i = 0; i < r.getInliers().size(); i++) {
         std::cout << r.getInliers()[i];
@@ -82,21 +80,22 @@ void testRansac() {
     }
 
 }
+
 /*
 void testBinomial() {
     for (int n = 1; n < 100; n += 10) {
         for (int k = 1; k < n; k += 5) {
-            std::cout << k << ", " << n << ": " << RANSAC::binomial(n, k) << std::endl;
+            std::cout << k << ", " << n << ": " << Ransac::binomial(n, k) << std::endl;
         }
     }
 }
 */
 void testImageDisplay() {
     Mat image;
-    image = imread("/home/geoffrey/RANSAC/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
+    image = imread("/home/geoffrey/Ransac/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
     // Check for invalid input
     if (image.empty()) {
-        image=imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg",IMREAD_UNCHANGED);
+        image = imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
         if (image.empty()) {
             std::cout << "Image not found" << endl;
             return;
@@ -110,25 +109,25 @@ void testImageDisplay() {
 }
 
 void testransachomography() {
-    double proba=0.7;
+    double proba = 0.7;
     double threshold = 3;
-    int nbit=5000;
-    int minS=300;
+    int nbit = 5000;
+    int minS = 300;
     vector<Mat> imgs;
 
-    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0006.jpg"));
-    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0007.jpg"));
-    imgs.push_back(imread("/home/pily/Documents/INF552/RANSAC/RANSAC/data/pano1/image0008.jpg"));
-    imshow("im0",imgs[0]);
-    imshow("im1",imgs[1]);
-    imshow("im2",imgs[2]);
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0006.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0007.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0008.jpg"));
+    imshow("im0", imgs[0]);
+    imshow("im1", imgs[1]);
+    imshow("im2", imgs[2]);
 
     waitKey(0); // Wait for a keystroke in the window
 
     mergeimages f(imgs[0], imgs[1], imgs[2], proba, minS, threshold, nbit);
-    Mat res= f.domergeimages();
+    Mat res = f.domergeimages();
 
-    imshow("res",res);
+    imshow("res", res);
     waitKey(0);
     return;
 }
