@@ -70,7 +70,7 @@ public:
             //waitKey(0);
         }
 
-        resize(I, I, Size(0, 0), 0.7, 0.7);
+
         return I;
     }
 
@@ -136,7 +136,7 @@ public:
             data2.push_back(img2[i]);
         }
 
-        bool *inliers = new bool[dataSize];
+
 
         /*Passage dans l'algorithme generique*/
         //ransac<pair<Point2f, Point2f>, homography> my_ransac(data, data_size);
@@ -144,7 +144,19 @@ public:
         Ransachomography<Homography> ransacH(data1,data2,dataSize,probability,minS,threshold,nbit);
 
 
-        Mat H;
+
+        /*On calcule l'homographie par la methode classique (moindres carres) sur les inliers du RANSAC */
+        Mat H = findHomography(ransacH.getInliers2(), ransacH.getInliers1(), 0);
+
+        /*
+        cout << "Drawing inliers" << endl;
+
+        Mat res;
+        drawMatches(I1, inliers1, I2, inliers2, good_matches, res);
+        imshow("Inliers", res);
+        waitKey(0);
+        */
+
         return H;
 
     }

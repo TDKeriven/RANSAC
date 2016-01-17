@@ -126,7 +126,7 @@ void testransachomography() {
 
     mergeimages f(imgs[0], imgs[1], imgs[2], proba, minS, threshold, nbit);
     Mat res = f.domergeimages();
-
+    resize(res, res, Size(0, 0), 0.7, 0.7);
     imshow("res", res);
     waitKey(0);
     return;

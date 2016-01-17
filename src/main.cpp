@@ -5,11 +5,11 @@
 #include "test.h"
 
 int main() {
-//    testSample();
-//    testBinomial();
+
+
 //   testLinearRegression();
-    testLinearRansac();
-//    testImageDisplay();
-// testransachomography();
+//  testLinearRansac();
+
+testransachomography();
     return 0;
 }
