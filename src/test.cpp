@@ -54,7 +54,7 @@ void testLinearRegression() {
 
 void testLinearRansac() {
 
-    int dataSize = 100000;
+    int dataSize = 1000;
     std::vector<Point2f> data;
     generateData(dataSize, &data);
     double proba, threshold;

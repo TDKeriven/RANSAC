@@ -12,8 +12,10 @@ LinearModel::LinearModel(std::vector<Point2f> dataSample) {
     points.second = dataSample[1];
 
     Point2f dir = points.second - points.first;
-    normale = Point2f(dir.y, -dir.x);
-    distanceToOrigin = points.second.dot(normale) / norm(normale);
+    normale = Point2f(dir.y/sqrt(dir.x*dir.x+dir.y*dir.y), -dir.x/sqrt(dir.x*dir.x+dir.y*dir.y));
+    float c=points.first.y-(dir.y/dir.x)*points.first.x;
+    Point2f oao(0,c);
+    distanceToOrigin = oao.ddot(normale);
 //    std::cout << distanceToOrigin;
 
 }

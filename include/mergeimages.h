@@ -61,6 +61,7 @@ public:
         //REPRENDRE ICI !!!
         cout << "Computing key points" << endl;
         Ptr<AKAZE> akaze = AKAZE::create();
+        //Ptr<Feature2D> akaze=AKAZE::create("akaze");
 
         for (int i = 0; i < nbimg; i++) {
             akaze->detect(gimgs[i], keypoints[i], cv::Mat());
