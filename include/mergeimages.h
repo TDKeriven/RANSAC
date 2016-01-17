@@ -84,8 +84,8 @@ public:
         vector<KeyPoint> keypoints1, keypoints2;
 
         cout << "Computing key points" << endl;
-        //Ptr<AKAZE> akaze = AKAZE::create();
-        Ptr<Feature2D> akaze = AKAZE::create("akaze");
+        Ptr<AKAZE> akaze = AKAZE::create();
+        //Ptr<Feature2D> akaze = AKAZE::create("akaze");
 
         akaze->detect(gimg1, keypoints1, cv::Mat());
         akaze->compute(gimg1, keypoints1, desc1);
@@ -136,9 +136,13 @@ public:
         bool *inliers = new bool[dataSize];
 
         /*Passage dans l'algorithme generique*/
-        Mat H;
+        //ransac<pair<Point2f, Point2f>, homography> my_ransac(data, data_size);
+        //my_ransac.getInliers(inliers, max_err_thresh,nb_iters,min_goodpoints);
 
+
+        Mat H;
         return H;
+
     }
 
     pair<Mat,Mat> merge_images(Mat& I1, Mat& I2, const Mat& H,const bool& pano){
