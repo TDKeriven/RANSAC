@@ -86,11 +86,11 @@ public:
         vector<vector<DMatch>> nn_matches;
         matcher.knnMatch(desc[0], desc[1], nn_matches, 2);
 
-        Mat raw_matches_img;
-        drawMatches(imgs[0], keypoints[0],imgs[1],keypoints[2], nn_matches, raw_matches_img);
+        //Mat raw_matches_img;
+        //drawMatches(imgs[1], keypoints[1],imgs[2],keypoints[2], nn_matches, raw_matches_img);
         //imshow("Raw matches", raw_matches_img);
         //waitKey(0);
-/*
+
         vector<Point2f> img1;
         vector<Point2f> img2;
 
@@ -98,14 +98,74 @@ public:
 
         for (unsigned int i = 0; i < nn_matches.size(); i++)
         {
-            img1.push_back(kpts1[nn_matches[i][0].queryIdx].pt);
-            img2.push_back(kpts2[nn_matches[i][0].trainIdx].pt);
+            img1.push_back(keypoints[1][nn_matches[i][0].queryIdx].pt);
+            img2.push_back(keypoints[2][nn_matches[i][0].trainIdx].pt);
 
-            matched1.push_back(kpts1[nn_matches[i][0].queryIdx]);
-            matched2.push_back(kpts2[nn_matches[i][0].trainIdx]);
+            matched1.push_back(keypoints[1][nn_matches[i][0].queryIdx]);
+            matched2.push_back(keypoints[2][nn_matches[i][0].trainIdx]);
         }
+
+
+        cout << "Computing RANSAC" << endl;
+        /*Calcul du RANSAC*/
+
+        /*On cree le tableau dynamique de donnees et on l'alloue */
+        const int dataSize = nn_matches.size();
+
+        pair<Point2f, Point2f>* data = new pair<Point2f, Point2f>[dataSize];
+
+        for (int i = 0; i < dataSize; i++){
+            data[i] = pair<Point2f, Point2f>(img1[i], img2[i]);
+        }
+
+        bool* inliers = new bool[dataSize];
+
+        /*Passage dans l'algorithme generique*/
+       // ransac<pair<Point2f, Point2f>, homography> my_ransac(data, data_size);
+        my_ransac.getInliers(inliers, max_err_thresh,nb_iters,min_goodpoints);
+
+        ransachomography rsc(data, dataSize, probability, minS, threshold, nbit)
+        rsc.getInliers();
+
+        /*On recupere deux tableaux avec les inliers dans les images 1 et 2*/
+        vector<Point2f> filtered_img1, filtered_img2;
+        int nb_inliers = 0;
+
+        vector<KeyPoint> inliers1, inliers2;
+        vector<DMatch> good_matches;
+
+        for (int i = 0; i < dataSize; i++){
+            if (inliers[i]){
+                filtered_img1.push_back(img1[i]);
+                filtered_img2.push_back(img2[i]);
+                inliers1.push_back(matched1[i]);
+                inliers2.push_back(matched2[i]);
+                good_matches.push_back(DMatch(nb_inliers, nb_inliers, 0));
+                nb_inliers++;
+            }
+        }
+
+        /* On sort si aucun match n'a ete trouve */
+        if (filtered_img1.size() == 0) {
+            cout << "No points matched, try a superior error threshold" << endl;
+            return Mat::zeros(3, 3, CV_32F);
+        }
+
+        cout << filtered_img1.size() << " points remaining, computing homography" << endl;
+
+        /*On calcule l'homographie par la methode classique (moindres carres) sur les inliers du RANSAC */
+        Mat H = findHomography(filtered_img2, filtered_img1, 0);
+
+        /*
+        cout << "Drawing inliers" << endl;
+
+        Mat res;
+        drawMatches(I1, inliers1, I2, inliers2, good_matches, res);
+        imshow("Inliers", res);
+        waitKey(0);
         */
-        return raw_matches_img;
+
+        return H;
     }
 };
 
