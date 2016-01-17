@@ -9,6 +9,7 @@
 #include <random>
 #include <opencv2/core.hpp>
 #include "linearmodel.h"
+#include "homography.h"
 #include <iostream>
 #include "utils.h"
 

@@ -1,2 +1,2 @@
-# Generic Ransac implementation in C++
+# Generic Ransachomography implementation in C++
 

@@ -68,7 +68,7 @@ void testLinearRansac() {
     nbit = 90;
     Ransac<LinearModel> r = Ransac<LinearModel>(data, dataSize + 1, proba, minS, threshold, nbit);
     LinearModel model = r.estimateModel();
-    std::cout << "Ransac found: " << model << std::endl;
+    std::cout << "Ransachomography found: " << model << std::endl;
     std::cout << "Inliers: " << std::endl;
     for (int i = 0; i < r.getInliers().size(); i++) {
         std::cout << r.getInliers()[i];
@@ -85,17 +85,17 @@ void testLinearRansac() {
 void testBinomial() {
     for (int n = 1; n < 100; n += 10) {
         for (int k = 1; k < n; k += 5) {
-            std::cout << k << ", " << n << ": " << Ransac::binomial(n, k) << std::endl;
+            std::cout << k << ", " << n << ": " << Ransachomography::binomial(n, k) << std::endl;
         }
     }
 }
 */
 void testImageDisplay() {
     Mat image;
-    image = imread("/home/geoffrey/Ransac/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
+    image = imread("/home/geoffrey/Ransachomography/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
     // Check for invalid input
     if (image.empty()) {
-        image = imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
+        image = imread("/home/pily/Documents/INF552/Ransachomography/Ransachomography/data/pano1/image0006.jpg", IMREAD_UNCHANGED);
         if (image.empty()) {
             std::cout << "Image not found" << endl;
             return;
@@ -115,9 +115,9 @@ void testransachomography() {
     int minS = 300;
     vector<Mat> imgs;
 
-    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0006.jpg"));
-    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0007.jpg"));
-    imgs.push_back(imread("/home/pily/Documents/INF552/Ransac/Ransac/data/pano1/image0008.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransachomography/Ransachomography/data/pano1/image0006.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransachomography/Ransachomography/data/pano1/image0007.jpg"));
+    imgs.push_back(imread("/home/pily/Documents/INF552/Ransachomography/Ransachomography/data/pano1/image0008.jpg"));
     imshow("im0", imgs[0]);
     imshow("im1", imgs[1]);
     imshow("im2", imgs[2]);

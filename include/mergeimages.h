@@ -9,6 +9,8 @@
 #include <random>
 #include <opencv2/core.hpp>
 #include "linearmodel.h"
+#include "homography.h"
+#include "ransachomography.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc.hpp>
@@ -84,8 +86,8 @@ public:
         vector<KeyPoint> keypoints1, keypoints2;
 
         cout << "Computing key points" << endl;
-        Ptr<AKAZE> akaze = AKAZE::create();
-        //Ptr<Feature2D> akaze = AKAZE::create("akaze");
+        //Ptr<AKAZE> akaze = AKAZE::create();
+        Ptr<Feature2D> akaze = AKAZE::create("akaze");
 
         akaze->detect(gimg1, keypoints1, cv::Mat());
         akaze->compute(gimg1, keypoints1, desc1);
@@ -121,16 +123,17 @@ public:
             matched2.push_back(keypoints2[nn_matches[i][0].trainIdx]);
         }
 
-        cout << "Computing Ransac" << endl;
-        /*Calcul du Ransac*/
+        cout << "Computing Ransachomography" << endl;
+        /*Calcul du Ransachomography*/
 
         /*On cree le tableau dynamique de donnees et on l'alloue */
         const int dataSize = nn_matches.size();
 
-        pair<Point2f, Point2f> *data = new pair<Point2f, Point2f>[dataSize];
+        vector<Point2f> data1,data2;
 
         for (int i = 0; i < dataSize; i++) {
-            data[i] = pair<Point2f, Point2f>(img1[i], img2[i]);
+            data1.push_back(img1[i]);
+            data2.push_back(img2[i]);
         }
 
         bool *inliers = new bool[dataSize];
@@ -138,6 +141,7 @@ public:
         /*Passage dans l'algorithme generique*/
         //ransac<pair<Point2f, Point2f>, homography> my_ransac(data, data_size);
         //my_ransac.getInliers(inliers, max_err_thresh,nb_iters,min_goodpoints);
+        Ransachomography<Homography> ransacH(data1,data2,dataSize,probability,minS,threshold,nbit);
 
 
         Mat H;

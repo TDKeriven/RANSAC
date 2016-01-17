@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-PROJECT( Ransac )
+PROJECT( Ransachomography )
 
 #
 # Find ITK
@@ -19,8 +19,8 @@ INCLUDE_DIRECTORIES (
 )
 
 SET(RANSAC_HDRS
-    Ransac.h
-    Ransac.txx
+    Ransachomography.h
+    Ransachomography.txx
     ParametersEstimator.h
     ParametersEstimator.txx
     )
@@ -36,7 +36,7 @@ LINK_LIBRARIES (
 )
 
 #
-# First example program showing the use of Ransac for plane fitting
+# First example program showing the use of Ransachomography for plane fitting
 #
 SET(PLANE_ESTIMATION_HDRS
     ${RANSAC_HDRS}
@@ -53,7 +53,7 @@ TARGET_LINK_LIBRARIES(planeEstimation ${LINK_LIBRARIES})
 
 
 #
-# Second example program showing the use of Ransac for sphere fitting
+# Second example program showing the use of Ransachomography for sphere fitting
 #
 SET(SPHERE_ESTIMATION_HDRS
     ${RANSAC_HDRS}
